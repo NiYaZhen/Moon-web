@@ -8,6 +8,6 @@ import * as Axios from "./setting/methods";
  * } 
  * @returns 
  */
-export const Login = (params) => Axios.Post("/staff/login", params);
+export const Login = (params) => Axios.Post("/user/login", params);
 
 // TODO 往下追加新 API

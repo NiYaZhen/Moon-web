@@ -7,13 +7,13 @@ const loginParams = reactive({
   password: ""
 });
 
-// // 提取API
-// const $api = inject("$api");
-// // api 處理
-// const ApiLogin = async () => {
-//   const data = await $api.Login(signInInfo);
-//   console.log(data);
-// };
+// 提取API
+const $api = inject("$api");
+// api 處理
+const ApiLogin = async () => {
+  const data = await $api.Login(signInInfo);
+  console.log(data);
+};
 const OnFinish = () => {
   console.log("Finish");
 };
