@@ -1,22 +1,23 @@
 <script setup>
 // 註冊卡片 📄
-import { /*inject*/ reactive} from "vue";
+import { inject, reactive} from "vue";
 // 登入資訊
-const loginParams = reactive({
+const signUpInfo = reactive({
   name: "",
   email: "",
   password: ""
 });
 
-// // 提取API
-// const $api = inject("$api");
-// // api 處理
-// const ApiLogin = async () => {
-//   const data = await $api.Login(signInInfo);
-//   console.log(data);
-// };
+// 提取API
+const $api = inject("$api");
+// api 處理
+const ApiSignUp = async () => {
+  const data = await $api.SignUp(signUpInfo);
+  console.log(data);
+};
 const OnFinish = () => {
   console.log("Finish");
+  ApiSignUp();
 };
 const OnFinishFailed = () => {
   console.log("failed");
@@ -27,7 +28,7 @@ const OnFinishFailed = () => {
 #SignupCardFrom
   .card-header {{"SIGN UP"}}
   aForm(
-    :model="loginParams"
+    :model="signUpInfo"
     name="loginFrom"
     autocomplete="off"
     hideRequiredMark
@@ -38,19 +39,19 @@ const OnFinishFailed = () => {
       name="name"
       :rules="[{ required: true, message: 'Please input your name!' }]"
     )
-      aInput( v-model:value="loginParams.name" placeholder="Name")
+      aInput( v-model:value="signUpInfo.name" placeholder="Name")
     
     aFormItem(
       name="email"
       :rules="[{ required: true, type:'email', message: 'Please input your email!' }]"
     )
-      aInput( v-model:value="loginParams.email" placeholder="Email")
+      aInput( v-model:value="signUpInfo.email" placeholder="Email")
 
     aFormItem(
       name="password"
       :rules="[{ required: true, message: 'Please input your password!' }]"
     )
-      aInput(type="password" v-model:value="loginParams.password" placeholder="Password")
+      aInput(type="password" v-model:value="signUpInfo.password" placeholder="Password")
     .bt-gap-20
     .row-center
       aFormItem

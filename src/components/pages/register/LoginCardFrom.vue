@@ -1,29 +1,45 @@
 <script setup>
 // 登入卡片 📄
-import { /*inject*/ reactive} from "vue";
+import { inject, reactive, ref } from "vue";
+import { useRouter } from "vue-router";
+const router = useRouter();
 // 登入資訊
 const loginParams = reactive({
   email: "",
   password: ""
 });
-
+const loginRes = ref("test text");
 // 提取API
 const $api = inject("$api");
 // api 處理
 const ApiLogin = async () => {
-  const data = await $api.Login(signInInfo);
-  console.log(data);
+  const data = await $api.Login(loginParams);
+
+  
+  console.log(data.err);
+  if (data.err==0){
+    router.push("/");
+  }else{
+    loginRes.value = data.message;
+  }
+
+  // TODO check data
+  
+  
 };
 const OnFinish = () => {
   console.log("Finish");
+  ApiLogin();
 };
 const OnFinishFailed = () => {
   console.log("failed");
+  router.push("/member");
 };
 </script>
 
 <template lang="pug">
 #LoginCardFrom
+  p {{loginRes}}
   .card-header {{"LOGIN"}}
   aForm(
     :model="loginParams"
